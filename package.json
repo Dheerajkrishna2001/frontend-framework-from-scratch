@@ -1,0 +1,19 @@
+{
+  "name": "kf-test-project",
+  "version": "1.0.0",
+  "description": "A project to learn how to write a frontend framework",
+  "private": true,
+  "workspaces": [
+    "packages/runtime",
+    "packages/compiler",
+    "packages/loader"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve:examples": "npx http-server . -o ./examples/"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

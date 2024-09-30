@@ -1,0 +1,28 @@
+{
+  "name": "kf-test-runtime",
+  "version": "1.0.0",
+  "main": "dist/kf-test.js",
+  "files": [
+    "dist/kf-test.js"
+  ],
+  "scripts": {
+    "prepack": "npm run build",
+    "build": "rollup -c",
+    "lint": "eslint src",
+    "link:fix": "eslint src --fix",
+    "test": "vitest",
+    "test:run": "vitest run"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "eslint": "^9.11.1",
+    "jsdom": "^25.0.1",
+    "rollup": "^4.22.5",
+    "rollup-plugin-cleanup": "^3.2.1",
+    "rollup-plugin-filesize": "^10.0.0",
+    "vitest": "^2.1.1"
+  }
+}
