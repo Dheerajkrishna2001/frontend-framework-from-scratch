@@ -31,9 +31,9 @@ function hFragment(children) {
 }
 
 function mapTextNodes(children) {
-  return children.map((child) => {
-    typeof child === "string" ? hString(child) : child;
-  });
+  return children.map((child) =>
+    typeof child === "string" ? hString(child) : child
+  );
 }
 
 function lipsum(number) {

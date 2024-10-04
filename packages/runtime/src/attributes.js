@@ -1,4 +1,4 @@
-export function attributes(el, attrs) {
+export function setAttributes(el, attrs) {
   const { class: className, style: style, ...otherAttrs } = attrs;
 
   if (className) {

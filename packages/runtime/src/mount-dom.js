@@ -9,8 +9,10 @@ function mountDOM(vdom, parentEl) {
       break;
     case DOM_TYPES.ELEMENT:
       createElementNode(vdom, parentEl);
+      break;
     case DOM_TYPES.FRAGMENT:
       createFragmentNode(vdom, parentEl);
+      break;
     default:
       throw new Error(`Unknown vdom type: ${vdom.type}`);
   }
@@ -43,3 +45,7 @@ function addProps(el, props, vdom) {
   setAttributes(attrs, el);
   vdom.listeners = addEventListeners(events, el);
 }
+
+module.exports = {
+  mountDOM,
+};
