@@ -16,6 +16,7 @@ function mountDOM(vdom, parentEl) {
     default:
       throw new Error(`Unknown vdom type: ${vdom.type}`);
   }
+  console.log(vdom);
 }
 
 function createTextNode(vdom, parentEl) {
