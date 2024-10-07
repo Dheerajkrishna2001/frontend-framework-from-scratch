@@ -46,5 +46,3 @@ function addProps(el, props, vdom) {
   setAttributes(attrs, el);
   vdom.listeners = addEventListeners(events, el);
 }
-
-
