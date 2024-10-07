@@ -1,4 +1,4 @@
-class Dispatcher {
+export class Dispatcher {
   #subs = new Map();
   #afterCommandHandlers = [];
 

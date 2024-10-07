@@ -2,7 +2,7 @@ import { mountDOM } from "./mount-dom.js";
 import { destroyDOM } from "./destroy-dom.js";
 import { Dispatcher } from "./dispatcher.js";
 
-function createApp({state,view, reducers ={}}) {
+export function createApp({state,view, reducers ={}}) {
     parentEl = null;
     vdom = null;
    
@@ -27,6 +27,10 @@ function createApp({state,view, reducers ={}}) {
     mount(parentEl){
         app.parentEl = parentEl;
         renderApp();
+    },
+    unmount(){
+        destroyDOM(vdom);
+        subscriptions.forEach(unsubscribe => unsubscribe());
     }
    }
    

@@ -1,8 +1,8 @@
 import { DOM_TYPES } from "./h";
-import { addEventListeners } from "./event";
+import { addEventListeners } from "./events";
 import { setAttributes } from "./attributes";
 
-function mountDOM(vdom, parentEl) {
+export function mountDOM(vdom, parentEl) {
   switch (vdom.type) {
     case DOM_TYPES.TEXT:
       createTextNode(vdom, parentEl);
@@ -47,6 +47,4 @@ function addProps(el, props, vdom) {
   vdom.listeners = addEventListeners(events, el);
 }
 
-module.exports = {
-  mountDOM,
-};
+
