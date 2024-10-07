@@ -2,32 +2,37 @@ import { mountDOM } from "./mount-dom.js";
 import { destroyDOM } from "./destroy-dom.js";
 import { Dispatcher } from "./dispatcher.js";
 
-function createApp({state,view, reducers ={}}) {
-    parentEl = null;
-    vdom = null;
-   
-    function renderApp(){
-        destroyDOM();
-        vdom = view(state);
-        mountDOM(vdom, parentEl);
-    }
+function createApp({ state, view, reducers = {} }) {
+  parentEl = null;
+  vdom = null;
 
-    const dispatcher = new Dispatcher();
-    
-    const subscriptions = [dispatcher.afterCommand(renderApp)];
+  function renderApp() {
+    destroyDOM();
+    vdom = view(state);
+    mountDOM(vdom, parentEl);
+  }
 
-   for(const actionName in reducers){
+  function emit(eventName, payload) {
+    dispatcher.emit(eventName, payload);
+  }
+
+  const dispatcher = new Dispatcher();
+
+  const subscriptions = [dispatcher.afterCommand(renderApp)];
+
+  for (const actionName in reducers) {
     const reducer = reducers[actionName];
-    subscriptions.push(dispatcher.subscribe(actionName, (payload)=>{
+    subscriptions.push(
+      dispatcher.subscribe(actionName, (payload) => {
         state = reducer(state, payload);
-    }));
-   }
+      })
+    );
+  }
 
-   return {
-    mount(parentEl){
-        app.parentEl = parentEl;
-        renderApp();
-    }
-   }
-   
+  return {
+    mount(parentEl) {
+      app.parentEl = parentEl;
+      renderApp();
+    },
+  };
 }
