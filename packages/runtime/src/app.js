@@ -2,12 +2,14 @@ import { mountDOM } from "./mount-dom.js";
 import { destroyDOM } from "./destroy-dom.js";
 import { Dispatcher } from "./dispatcher.js";
 
-function createApp({ state, view, reducers = {} }) {
-  parentEl = null;
-  vdom = null;
+export function createApp({ state, view, reducers = {} }) {
+  let parentEl = null;
+  let vdom = null;
 
   function renderApp() {
-    destroyDOM();
+    if (vdom) {
+      destroyDOM(vdom);
+    }
     vdom = view(state);
     mountDOM(vdom, parentEl);
   }
@@ -30,9 +32,16 @@ function createApp({ state, view, reducers = {} }) {
   }
 
   return {
-    mount(parentEl) {
-      app.parentEl = parentEl;
+    mount(_parentEl) {
+      parentEl = _parentEl;
       renderApp();
+
+      return this;
+    },
+    unmount() {
+      destroyDOM(vdom);
+      vdom = null;
+      subscriptions.forEach((unsubscribe) => unsubscribe());
     },
   };
 }

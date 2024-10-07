@@ -2,7 +2,8 @@ import { DOM_TYPES } from "./h";
 import { removeEventListeners } from "./events";
 
 export function destroyDOM(vdom) {
-  switch (vdom.type) {
+  const { type, el } = vdom;
+  switch (type) {
     case DOM_TYPES.ELEMENT:
       removeElementNode(vdom);
       break;
@@ -41,5 +42,3 @@ function removeFragmentNode(vdom) {
   const { children } = vdom;
   children.forEach(destroyDOM);
 }
-
-
