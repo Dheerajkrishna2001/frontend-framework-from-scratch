@@ -1,7 +1,7 @@
 import { DOM_TYPES } from "./h";
 import { removeEventListeners } from "./events";
 
-function destroyDOM(vdom) {
+export function destroyDOM(vdom) {
   switch (vdom.type) {
     case DOM_TYPES.ELEMENT:
       removeElementNode(vdom);
@@ -14,7 +14,6 @@ function destroyDOM(vdom) {
       break;
     default:
       throw new Error(`Unknown vdom type: ${vdom.type}`);
-      break;
   }
   delete vdom.el;
 }
@@ -43,6 +42,4 @@ function removeFragmentNode(vdom) {
   children.forEach(destroyDOM);
 }
 
-module.exports = {
-  destroyDOM,
-};
+
