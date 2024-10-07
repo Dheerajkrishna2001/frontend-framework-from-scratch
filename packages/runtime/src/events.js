@@ -3,14 +3,8 @@ export function addEventListener(eventName, handler, el) {
   return handler;
 }
 
-<<<<<<< HEAD
-export function addEventListeners(listeners = {}, el) {
-||||||| cc25477
-function addEventListeners(listeners = {}, el) {
-=======
 export function addEventListeners(listeners = {}, el) {
   console.log(listeners, "listeners");
->>>>>>> a91e591079310bd9b7af72a53f673968d192321a
   let addListeners = {};
   Object.entries(listeners).forEach((EventName, handler) => {
     const addListener = addEventListener(EventName, handler, el);
@@ -24,15 +18,3 @@ export function removeEventListeners(listeners = {}, el) {
     el.removeEventListener(EventName, handler);
   });
 }
-<<<<<<< HEAD
-
-
-||||||| cc25477
-
-export default {
-  addEventListener,
-  addEventListeners,
-  removeEventListeners,
-};
-=======
->>>>>>> a91e591079310bd9b7af72a53f673968d192321a
