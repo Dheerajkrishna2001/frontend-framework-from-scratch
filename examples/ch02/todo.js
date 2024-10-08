@@ -75,7 +75,6 @@ const reducers = {
 
   "add-todo": (state) => ({
     ...state,
-
     todos: [...state.todos, state.currentTodo],
   }),
 
@@ -133,7 +132,7 @@ function CreateTodo({ currentTodo }, emit) {
       on: {
         input: ({ target }) => emit("update-current-todo", target.value),
       },
-    }),
+    },[]),
     h(
       "button",
       {
@@ -177,4 +176,4 @@ function TodoItem({ todo, i, edit }, emit) {
       ]);
 }
 
-createApp({ state, reducers, view: App }).mount(document.body);
+createApp({ state,  view:App, reducers}).mount(document.body);

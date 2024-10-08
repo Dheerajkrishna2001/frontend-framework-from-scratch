@@ -1,4 +1,4 @@
-export function setAttributes(el, attrs) {
+export function setAttributes(attrs, el) {
   const { class: className, style: style, ...otherAttrs } = attrs;
 
   if (className) {
@@ -6,7 +6,7 @@ export function setAttributes(el, attrs) {
   }
   if (style) {
     Object.entries(style).forEach(([prop, value]) => {
-      setStyle(el, prop, style);
+      setStyle(el, prop, value);
     });
   }
   Object.entries(otherAttrs).forEach(([prop, value]) => {
@@ -23,8 +23,8 @@ function setClass(el, className) {
   }
 }
 
-function setStyle(el, prop, style) {
-  el.style[prop] = style[prop];
+function setStyle(el, prop, value) {
+  el.style[prop] = value;
 }
 
 function removeStyle(el, prop) {

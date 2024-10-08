@@ -10,12 +10,12 @@ export function createApp({ state, view, reducers = {} }) {
     if (vdom) {
       destroyDOM(vdom);
     }
-    vdom = view(state);
+    vdom = view(state,emit);
     mountDOM(vdom, parentEl);
   }
 
   function emit(eventName, payload) {
-    dispatcher.emit(eventName, payload);
+    dispatcher.dispatch(eventName, payload);
   }
 
   const dispatcher = new Dispatcher();
