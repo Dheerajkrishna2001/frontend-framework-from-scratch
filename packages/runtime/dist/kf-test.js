@@ -34,32 +34,33 @@ function mapTextNodes(children) {
 }
 
 function addEventListener(eventName, handler, el) {
+  console.log(eventName, handler, el, "eventName, handler, el");
   el.addEventListener(eventName, handler);
   return handler;
 }
 function addEventListeners(listeners = {}, el) {
   console.log(listeners, "listeners");
   let addListeners = {};
-  Object.entries(listeners).forEach((EventName, handler) => {
+  Object.entries(listeners).forEach(([EventName, handler]) => {
     const addListener = addEventListener(EventName, handler, el);
     addListeners[EventName] = addListener;
   });
   return addListeners;
 }
 function removeEventListeners(listeners = {}, el) {
-  Object.entries(listeners).forEach((EventName, handler) => {
+  Object.entries(listeners).forEach(([EventName, handler]) => {
     el.removeEventListener(EventName, handler);
   });
 }
 
-function setAttributes(el, attrs) {
+function setAttributes(attrs, el) {
   const { class: className, style: style, ...otherAttrs } = attrs;
   if (className) {
     setClass(el, className);
   }
   if (style) {
     Object.entries(style).forEach(([prop, value]) => {
-      setStyle(el, prop, style);
+      setStyle(el, prop, value);
     });
   }
   Object.entries(otherAttrs).forEach(([prop, value]) => {
@@ -74,8 +75,8 @@ function setClass(el, className) {
     el.classList.add(...className);
   }
 }
-function setStyle(el, prop, style) {
-  el.style[prop] = style[prop];
+function setStyle(el, prop, value) {
+  el.style[prop] = value;
 }
 function setAttribute(el, prop, value) {
   if (value === null) {
@@ -126,7 +127,7 @@ function createElementNode(vdom, parentEl) {
   children.forEach((child) => mountDOM(child, elementNode));
   parentEl.appendChild(elementNode);
 }
-function addProps(el, props, vdom) {
+function addProps(props,el, vdom) {
   const { on: events, ...attrs } = props;
   setAttributes(attrs, el);
   vdom.listeners = addEventListeners(events, el);
@@ -210,8 +211,11 @@ function createApp({ state, view, reducers = {} }) {
     if (vdom) {
       destroyDOM(vdom);
     }
-    vdom = view(state);
+    vdom = view(state,emit);
     mountDOM(vdom, parentEl);
+  }
+  function emit(eventName, payload) {
+    dispatcher.dispatch(eventName, payload);
   }
   const dispatcher = new Dispatcher();
   const subscriptions = [dispatcher.afterCommand(renderApp)];
